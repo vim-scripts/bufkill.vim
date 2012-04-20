@@ -410,7 +410,7 @@ function! <SID>GotoBuffer(cmd, bang) "{{{1
   "         Ctrl-^, in order to swap to the previous column of the alternate
   "         file, which does not happen with regular Ctrl-^.
 
-  if (a:cmd=='bw' || a:cmd=='bd')
+  if (a:cmd=='bw' || a:cmd=='bd' || a:cmd=='bun')
     let w:BufKillLastCmd = a:cmd . a:bang
     " Handle the 'auto' setting for
     " g:BufKillFunctionSelectingValidBuffersToDisplay
