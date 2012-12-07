@@ -212,43 +212,45 @@ endif
 
 " Keyboard mappings {{{1
 "
-noremap <Plug>BufKillAlt         :call <SID>GotoBuffer('#', '')<CR>
-noremap <Plug>BufKillBangAlt     :call <SID>GotoBuffer('#', '!')<CR>
-noremap <Plug>BufKillBack        :call <SID>GotoBuffer('bufback', '')<CR>
-noremap <Plug>BufKillBangBack    :call <SID>GotoBuffer('bufback', '!')<CR>
-noremap <Plug>BufKillForward     :call <SID>GotoBuffer('bufforward', '')<CR>
-noremap <Plug>BufKillBangForward :call <SID>GotoBuffer('bufforward', '!')<CR>
-noremap <Plug>BufKillBun         :call <SID>BufKill('bun', '')<CR>
-noremap <Plug>BufKillBangBun     :call <SID>BufKill('bun', '!')<CR>
-noremap <Plug>BufKillBd          :call <SID>BufKill('bd', '')<CR>
-noremap <Plug>BufKillBangBd      :call <SID>BufKill('bd', '!')<CR>
-noremap <Plug>BufKillBw          :call <SID>BufKill('bw', '')<CR>
-noremap <Plug>BufKillBangBw      :call <SID>BufKill('bw', '!')<CR>
-noremap <Plug>BufKillUndo        :call <SID>UndoKill()<CR>
-
-function! <SID>CreateUniqueMapping(lhs, rhs, ...)
-  if hasmapto(a:rhs) && !(a:0 == 1 && a:1 == 'AllowDuplicate')
-    " The user appears to have defined an alternate mapping for this command
-    return
-  elseif maparg(a:lhs, 'n') != ""
-    " The user appears to have defined a mapping for a:lhs already
-    return
+if g:BufKillEnableMappings == 1
+  noremap <Plug>BufKillAlt         :call <SID>GotoBuffer('#', '')<CR>
+  noremap <Plug>BufKillBangAlt     :call <SID>GotoBuffer('#', '!')<CR>
+  noremap <Plug>BufKillBack        :call <SID>GotoBuffer('bufback', '')<CR>
+  noremap <Plug>BufKillBangBack    :call <SID>GotoBuffer('bufback', '!')<CR>
+  noremap <Plug>BufKillForward     :call <SID>GotoBuffer('bufforward', '')<CR>
+  noremap <Plug>BufKillBangForward :call <SID>GotoBuffer('bufforward', '!')<CR>
+  noremap <Plug>BufKillBun         :call <SID>BufKill('bun', '')<CR>
+  noremap <Plug>BufKillBangBun     :call <SID>BufKill('bun', '!')<CR>
+  noremap <Plug>BufKillBd          :call <SID>BufKill('bd', '')<CR>
+  noremap <Plug>BufKillBangBd      :call <SID>BufKill('bd', '!')<CR>
+  noremap <Plug>BufKillBw          :call <SID>BufKill('bw', '')<CR>
+  noremap <Plug>BufKillBangBw      :call <SID>BufKill('bw', '!')<CR>
+  noremap <Plug>BufKillUndo        :call <SID>UndoKill()<CR>
+  
+  function! <SID>CreateUniqueMapping(lhs, rhs, ...)
+    if hasmapto(a:rhs) && !(a:0 == 1 && a:1 == 'AllowDuplicate')
+      " The user appears to have defined an alternate mapping for this command
+      return
+    elseif maparg(a:lhs, 'n') != ""
+      " The user appears to have defined a mapping for a:lhs already
+      return
+    endif
+    exec 'nmap <silent> <unique> '.a:lhs.' '.a:rhs
+  endfunction
+  
+  call <SID>CreateUniqueMapping('<Leader>bb',   '<Plug>BufKillBack')
+  call <SID>CreateUniqueMapping('<Leader>bf',   '<Plug>BufKillForward')
+  call <SID>CreateUniqueMapping('<Leader>bun',  '<Plug>BufKillBun')
+  call <SID>CreateUniqueMapping('<Leader>!bun', '<Plug>BufKillBangBun')
+  call <SID>CreateUniqueMapping('<Leader>bd',   '<Plug>BufKillBd')
+  call <SID>CreateUniqueMapping('<Leader>!bd',  '<Plug>BufKillBangBd')
+  call <SID>CreateUniqueMapping('<Leader>bw',   '<Plug>BufKillBw')
+  call <SID>CreateUniqueMapping('<Leader>!bw',  '<Plug>BufKillBangBw')
+  call <SID>CreateUniqueMapping('<Leader>bundo','<Plug>BufKillUndo')
+  call <SID>CreateUniqueMapping('<Leader>ba',   '<Plug>BufKillAlt')
+  if g:BufKillOverrideCtrlCaret == 1
+    call <SID>CreateUniqueMapping('<C-^>', '<Plug>BufKillAlt', 'AllowDuplicate')
   endif
-  exec 'nmap <silent> <unique> '.a:lhs.' '.a:rhs
-endfunction
-
-call <SID>CreateUniqueMapping('<Leader>bb',   '<Plug>BufKillBack')
-call <SID>CreateUniqueMapping('<Leader>bf',   '<Plug>BufKillForward')
-call <SID>CreateUniqueMapping('<Leader>bun',  '<Plug>BufKillBun')
-call <SID>CreateUniqueMapping('<Leader>!bun', '<Plug>BufKillBangBun')
-call <SID>CreateUniqueMapping('<Leader>bd',   '<Plug>BufKillBd')
-call <SID>CreateUniqueMapping('<Leader>!bd',  '<Plug>BufKillBangBd')
-call <SID>CreateUniqueMapping('<Leader>bw',   '<Plug>BufKillBw')
-call <SID>CreateUniqueMapping('<Leader>!bw',  '<Plug>BufKillBangBw')
-call <SID>CreateUniqueMapping('<Leader>bundo','<Plug>BufKillUndo')
-call <SID>CreateUniqueMapping('<Leader>ba',   '<Plug>BufKillAlt')
-if g:BufKillOverrideCtrlCaret == 1
-  call <SID>CreateUniqueMapping('<C-^>', '<Plug>BufKillAlt', 'AllowDuplicate')
 endif
 
 function! <SID>BufKill(cmd, bang) "{{{1
