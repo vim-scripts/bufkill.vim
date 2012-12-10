@@ -1,7 +1,7 @@
 " bufkill.vim
 " Maintainer:	John Orr (john undersc0re orr yah00 c0m)
-" Version:	1.10
-" Last Change:	16 June 2011
+" Version:	1.11
+" Last Change:	10 December 2012
 
 " Introduction: {{{1
 " Basic Usage:
@@ -13,7 +13,7 @@
 " To move to the alternate buffer whilst preserving cursor column, use:
 "   :BA
 " or override Ctrl-^ via g:BufKillOverrideCtrlCaret
-" Mappings are also defined.
+" Mappings are also defined when g:BufKillEnableMappings is not set to 0.
 
 " Description:
 " This is a script to
@@ -67,6 +67,7 @@
 "   last view in that file.
 
 " Changelog:
+" 1.11 - Mappings definition can be disabled, set g:BufKillEnableMappings to 0 to disable them
 " 1.10 - Various fixes, eg relating to quicklists
 " 1.9  - Remove unnecessary mapping delays, and a debug message
 " 1.8  - Improved mapping handling, and robustness
@@ -180,6 +181,12 @@ endif
 " change it
 if !exists('g:BufKillVerbose')
   let g:BufKillVerbose = 1
+endif
+
+" g:BufKillEnableMappings {{{2
+" If set to 1, mappings are defined.
+if !exists('g:BufKillEnableMappings')
+  let g:BufKillEnableMappings = 1
 endif
 
 
