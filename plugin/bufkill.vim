@@ -219,7 +219,7 @@ endif
 
 " Keyboard mappings {{{1
 "
-if g:BufKillEnableMappings == 1
+if g:BufKillEnableMappings != 0
   noremap <Plug>BufKillAlt         :call <SID>GotoBuffer('#', '')<CR>
   noremap <Plug>BufKillBangAlt     :call <SID>GotoBuffer('#', '!')<CR>
   noremap <Plug>BufKillBack        :call <SID>GotoBuffer('bufback', '')<CR>
