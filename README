@@ -6,7 +6,7 @@ When you want to unload/delete/wipe a buffer, use:
   :BUN/:BD/:BW to leave the window(s) intact (this script).
 To move backwards and forwards through the chronological 
 list of buffers accessed, use :BB and :BF, respectively.
-Mappings are also defined.
+Mappings are also defined when g:BufKillEnableMappings is not 0.
 
 Detailed Description: 
 This is a script to 
